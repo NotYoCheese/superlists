@@ -5,7 +5,7 @@ stop on shutdown
 
 respawn
 
-chdir /home/harry/sites/{{ host }}/source
+chdir /home/ubuntu/sites/{{ host }}/source
 exec ../virtualenv/bin/gunicorn \
     --bind unix:/tmp/{{ host }}.socket \
     --access-logfile ../access.log \
