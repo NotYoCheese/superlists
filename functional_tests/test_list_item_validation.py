@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from unittest import skip
+from lists.forms import EMPTY_ITEM_ERROR, DUPLICATE_ITEM_ERROR
+
 
 class ItemValidationTest(FunctionalTest):
 
@@ -29,7 +31,7 @@ class ItemValidationTest(FunctionalTest):
         # She receives a similar warning on the list page
         self.check_for_row_in_list_table('1: Buy milk')
         error = self.browser.find_element_by_css_selector('.has-error')
-        self.assertEqual(error.text, "You can't have an empty list item")
+        self.assertEqual(error.text, EMPTY_ITEM_ERROR)
 
         # And she can correct it by filling some text in
         self.get_item_input_box().send_keys('Make tea\n')
@@ -48,4 +50,4 @@ class ItemValidationTest(FunctionalTest):
         # She sees a helpful error message
         self.check_for_row_in_list_table('1: Buy wellies')
         error = self.browser.find_element_by_css_selector('.has-error')
-        self.assertEqual(error.text, "You've already got this in your list")
+        self.assertEqual(error.text, DUPLICATE_ITEM_ERROR)
